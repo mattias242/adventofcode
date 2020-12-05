@@ -60,7 +60,7 @@ function dec3part1(...)
 		printbits(toboggan,31)
 		printbits(v,31)
 		print(hittree>0)
-		if hittree>0 then treeshit = treeshit + 1 end
+		if hittree>0 then treeshit = treeshit + 1	end
 
 		if toboggan == 0 then
 			print("ERROR")
@@ -69,7 +69,7 @@ function dec3part1(...)
 		toboggan = bit32.rrotate(toboggan,3)
 		bit = bit + 3
 		if bit > 31 then
-			toboggan = bit32.rrotate(1,3)
+			toboggan = bit32.rrotate(1,4)
 			bit = 1
 		end
 	end
