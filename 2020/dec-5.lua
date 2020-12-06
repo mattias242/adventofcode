@@ -60,6 +60,6 @@ function dec5part2(...)
 end
 
 readboardingcards()
-dec4part1()
-dec4part2()
+dec5part1()
+dec5part2()
 
