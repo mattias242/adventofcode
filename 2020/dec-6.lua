@@ -1,39 +1,52 @@
--- dec-5.lua
+-- dec-6.lua
+require("niceones")
 
+function dec6(...)
   allquestions={}
-
-function initallquestions()
-  for i=1,26 do
-    allquestions[string.char(string.byte('a')+i-1)]=0
-  end
-end
-
-function dec4part1(...)
-  initallquestions()
   groupquestions = {}
+  groupreplies = {}
+  groupsize = 0
+  uniquequestions = 0 
   for questions in io.lines("input-6.txt") do
+    groupsize = groupsize + 1
     if questions ~= "" then 
       for match in string.gmatch(questions,"%a") do
-        groupquestions[match] = (groupquestions[match] > 1 or 1)
+        groupquestions[match] = ((groupquestions[match] or 0) > 1 or 1)
+        groupreplies[match] = ((groupreplies[match] or 0) + 1)
       end
     else
-      for k,v in pairs(table_name) do
-        allquestions[k]=allquestions[k] + v
+      for k,v in pairs(groupquestions) do
+        allquestions[k] = (allquestions[k] or 0) + v
+      end
+      groupsize = groupsize - 1
+      for k,v in pairs(groupreplies) do
+        if groupreplies[k] >= groupsize then 
+          uniquequestions = uniquequestions + 1 
+        end
       end
       groupquestions={}
+      groupreplies={}
+      groupsize = 0
     end
   end
-  print("December 4 part 1: ", maxseat)
-end
-
-function dec4part2(...)
-  for i=minseat,maxseat do
-    if passengers[i] == nil then myseat = i end
+  if questions == nil  then
+    for k,v in pairs(groupquestions) do
+      allquestions[k] = (allquestions[k] or 0) + v
+    end
+    groupsize = groupsize -1 
+    for k,v in pairs(groupreplies) do
+      if groupreplies[k] >= groupsize then uniquequestions = uniquequestions + 1 end
+    end
   end
-  print("December 4 part 2: ", myseat)
+
+  sum = 0
+  for _,v in pairs(allquestions) do
+    sum = sum + v
+  end
+
+  print("December 6 part 1: ", sum)
+  print("December 6 part 2: ", uniquequestions)
 end
 
-readboardingcards()
-dec4part1()
-dec4part2()
+dec6()
 
