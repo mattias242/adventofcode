@@ -48,7 +48,6 @@ end
 
 function dec8part1(file,istest,expected)
   program = readprogram(file)
-  --printprogram(program)
   success, acummulator = runprogram(program)
   if istest then 
     assert(accumulator == expected) 
@@ -61,25 +60,13 @@ end
 function dec8part2(file,istest,expected)
   opcodes = {{"nop","jmp"},{"jmp","nop"}}
   for index=1,2 do
-    --print(index)
     for i,v in ipairs(program) do
       program = readprogram(file)
-      --print("SWAP IN ", i," (", max,")")
       if program[i].opcode == opcodes[index][1] then 
-        --print("SWAP")
         program[i].opcode=opcodes[index][2] 
       end
-      --printprogram(program)
-
       success, acummulator = runprogram(program)
-      --print( "Iteration #", i, success,accumulator)
       if success then break end
-
-      --print("SWAP OUT ", i," (", max,")")
-      --if program[i].opcode == opcodes[index][2] then 
-        --print("SWAP BACK")
-        --program[i].opcode=opcodes[index][1] 
-      --end
     end
   end
   if istest then 
